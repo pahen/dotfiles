@@ -1,0 +1,33 @@
+# Globally useful gitignores: https://github.com/github/gitignore/tree/master/Global
+
+# Finder
+.DS_Store
+Icon?
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# SVN
+.svn/
+
+# TextMate
+*.tmproj
+*.tmproject
+tmtags
+
+# NetBeans
+nbproject
+
+# WebStorm
+.idea
+
+# Sublime Text 2
+*.sublime-project
+*.sublime-workspace
+
+# NPM
+npm-debug.log

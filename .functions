@@ -1,0 +1,4 @@
+# Show size of each loaded kernel extension and the total size of all
+kextsize () {
+	kextstat -kl | awk 'BEGIN{sum = 0} {printf("%5dKB %s\n", $4/1024, $6); sum+=$4} END{printf("\nTotal: %.2fMB\n\n", sum/1024/1024)}'
+}

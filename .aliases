@@ -1,0 +1,57 @@
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+# Shortcuts
+alias s="sudo"
+alias g="git"
+alias h="history"
+
+# Various
+alias jsc="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc"
+alias wifi="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport"
+alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+alias notifier="/Applications/terminal-notifier.app/Contents/MacOS/terminal-notifier"
+alias sys="grc tail -100 /var/log/system.log"
+alias clipboard="pbcopy"
+alias ls="ls -G"
+alias ldd="otool -L"
+alias strace="sudo dtruss -f"
+alias python="python2.5"
+alias tm-watch="watch -d -n 5 sudo lsof -c backupd"
+alias tm-trace="sudo fs_usage -w -f filesys backupd | grep ' open '"
+alias tcp-app-connections="sudo lsof -n -P -iTCP -sTCP:ESTABLISHED"
+alias ssh-key-fingerprints="for i in ~/.ssh/*.pub; do ssh-keygen -l -f "$i"; done"
+alias rm-orig="find . -name "*.orig" | xargs rm -v"
+alias opensnoop="sudo opensnoop"
+alias tree="tree -C"
+alias lsflags="ls -lO"
+alias server="open http://localhost:8000 && python -m SimpleHTTPServer"
+alias realpath="readlink -f"
+alias dnsflushcache="sudo dscacheutil -flushcache"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+alias ips="ifconfig -a | grep -o 'inet6\? \(\([0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+\)\|[a-fA-F0-9:]\+\)' | sed -e 's/inet6* //'"
+
+# GIT
+alias git-authorship="git ls-files -z | xargs -0 -n1 -E'\n' -J {} git blame --date short -wCMcp '{}' | perl -pe 's/^.*?\((.*?) +\d{4}-\d{2}-\d{2} +\d+\).*/\1/' | sort | uniq -c | sort -rn"
+alias github="((git config --local --get remote.origin.url | sed -e 's/git@github.com:/https:\/\/github.com\//g' -e 's/\.git$/\/tree\//g'); (git branch 2>/dev/null| sed -n '/^\*/s/^\* //p'); echo '/'; (git rev-parse --show-prefix)) | tr -d '\n' | xargs open"
+
+# MacPorts
+alias port-cleanup="for file in `port installed | grep -v active | sed -e "s/ //g"` ; do sudo port uninstall $file ; done"
+alias node-list="port installed nodejs"
+alias node-activate="sudo port activate"
+
+# Grunt
+alias grr="./node_modules/grunt/bin/grunt"
+
+# Colourise some commands /opt/local/etc/grc.conf
+for CMD in ping traceroute; do
+	alias $CMD="grc $CMD"
+done

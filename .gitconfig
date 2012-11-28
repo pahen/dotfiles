@@ -1,0 +1,26 @@
+[user]
+	name = Patrik Henningsson
+	email = patrik.henningsson@gmail.com
+[core]
+	excludesfile = ~/.gitignore
+	quotepath = false
+	editor = vim
+[color]
+	diff = auto
+	ui = true
+[alias]
+	st = status
+	ci = commit
+	br = branch
+	co = checkout
+	sm = submodule
+	df = diff
+	undo = reset --soft HEAD~1
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lc = log ORIG_HEAD.. --stat --no-merges
+	who = shortlog -s --
+	cfg = config --global -e
+	commitstats = shortlog --numbered --summary
+	filehistory = log -p --follow
+[merge]
+	tool = opendiff
