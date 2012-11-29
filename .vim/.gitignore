@@ -1,1 +1,3 @@
-bundle
+bundle/*
+!bundle/vim-colors-pastel
+.netrwhist

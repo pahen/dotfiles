@@ -29,29 +29,43 @@
 	co = checkout
 	sm = submodule
 	df = diff
+
 	# Show verbose output about tags, branches or remotes
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
+
 	# View the current working tree status using the short format
 	s = status -s
+
 	# View the SHA, description, and history graph of the latest 20 commits
 	l = log --pretty=oneline -n 20 --graph
+
 	# View detailed view of commit history
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
 	# Show the diff between the latest commit and the current state
 	d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+
 	# `git di $number` shows the diff between the state `$number` revisions ago and the current state
 	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+
 	# `git squash $number` shows the diff between the state `$number` revisions ago and the current state
 	squash = !"squash() { git rebase -i HEAD~$1; }; squash"
+
 	# Undo last commit (changed files are preserved)
 	undo = reset --soft HEAD~1
+
 	# Show author summary
 	who = shortlog --numbered --summary
+
 	# Open global config
 	cfg = config --global -e
+
 	# Show filehistory for a given file
 	filehistory = log -p --follow
 [merge]
 	tool = opendiff
+[mergetool]
+	# Cleanup *.orig file after merge-conflicts
+	keepBackup = false
