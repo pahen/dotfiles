@@ -34,5 +34,5 @@ export PROMPT_COMMAND=$PROMPT_COMMAND'; echo -ne "\033]0;$(basename "$PWD")\007"
 # Make some commands not show up in history
 export HISTIGNORE="ls:cd:[bf]g:exit:..:...:ll:lla"
 
-#export NODE_PATH="/opt/local/lib/node_modules"
-#export SSH_AUTH_SOCK=/tmp/501/SSHKeychain.socket
+# Use SSH agent forwarding
+export SSH_AUTH_SOCK="/tmp/$(id -g)/SSHKeychain.socket"
