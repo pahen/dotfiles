@@ -7,12 +7,11 @@ complete -W "NSGlobalDomain" defaults
 # Add case-insensitive `killall` tab completion of running apps
 _complete_running_processes ()
 {
-	local cur prev
 	local LC_ALL='C'
+	local IFS=$'\n'
+	local cur=${COMP_WORDS[COMP_CWORD]}
 
 	COMPREPLY=()
-	cur=${COMP_WORDS[COMP_CWORD]}
-	prev=${COMP_WORDS[COMP_CWORD-1]}
 
 	# do not attempt completion if we're specifying an option
 	[[ "$cur" == -* ]] && return 0
@@ -20,13 +19,37 @@ _complete_running_processes ()
 	# Escape dots in paths for grep
 	cur=${cur//\./\\\.}
 
-	local IFS=$'\n'
-
-	COMPREPLY=( $(ps axc | awk '{ print $5 }' | sort -u | grep -v "^[\-\(]" | grep -i "^$cur") )
-
-	return 0
+	COMPREPLY=( $(ps axc | tail -n +2 | awk '{ print $5 }' | sort -u | grep -v "^[\-\(]" | grep -i "^$cur") )
 }
-complete -o bashdefault -o default -o nospace -F _complete_running_processes killall 2>/dev/null || complete -o default -o nospace -F _complete_running_processes killall
+complete -o bashdefault -o default -o nospace -F _complete_running_processes killall
+
+# Add case-insensitive `kill` tab completion of running apps
+_complete_running_processes_pids ()
+{
+	local re
+	local LC_ALL='C'
+	local IFS=$'\n'
+	local cur=${COMP_WORDS[COMP_CWORD]}
+
+	COMPREPLY=()
+
+	# do not attempt completion if we're specifying an option
+	[[ "$cur" == -* ]] && return 0
+
+	# Escape dots in paths for grep
+	cur=${cur//\./\\\.}
+
+	if [[ $cur != *[!0-9]* ]]; then
+		# search by PID
+		re="^$cur"
+	else
+		# search by process name
+		re="^[0-9]+ # $cur[^$]"
+	fi
+
+	COMPREPLY=( $(ps axc | tail -n +2 | awk '{print $1 " # " $5}' | sort -u | grep -v "^[\-\(]" | egrep -i "$re") )
+}
+complete -o bashdefault -o default -o nospace -F _complete_running_processes_pids kill
 
 # If possible, add tab completion for many more commands
 if [ -f /opt/local/share/doc/git-core/contrib/completion/git-completion.bash ]; then

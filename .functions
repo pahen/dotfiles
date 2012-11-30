@@ -1,4 +1,18 @@
 # Show size of each loaded kernel extension and the total size of all
-kextsize () {
+function kextsize {
 	kextstat -kl | awk 'BEGIN{sum = 0} {printf("%5dKB %s\n", $4/1024, $6); sum+=$4} END{printf("\nTotal: %.2fMB\n\n", sum/1024/1024)}'
 }
+
+# Get that path of the front-most Finder window
+function ff {
+	osascript -e 'tell application "Finder"'\
+	 -e "if (${1-1} <= (count Finder windows)) then"\
+	 -e "get POSIX path of (target of window ${1-1} as alias)"\
+	 -e 'else' -e 'get POSIX path of (desktop as alias)'\
+	 -e 'end if' -e 'end tell';
+};
+
+# Change directory to front-most Finder window
+function cdff {
+	cd "$(ff)"
+};
