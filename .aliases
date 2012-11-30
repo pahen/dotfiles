@@ -78,14 +78,12 @@ alias hide="defaults write com.apple.Finder AppleShowAllFiles -bool false && kil
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
-# GIT
+# Git
 alias git-authorship="git ls-files -z | xargs -0 -n1 -E'\n' -J {} git blame --date short -wCMcp '{}' | perl -pe 's/^.*?\((.*?) +\d{4}-\d{2}-\d{2} +\d+\).*/\1/' | sort | uniq -c | sort -rn"
 alias github="((git config --local --get remote.origin.url | sed -e 's/git@github.com:/https:\/\/github.com\//g' -e 's/\.git$/\/tree\//g'); (git branch 2>/dev/null| sed -n '/^\*/s/^\* //p'); echo '/'; (git rev-parse --show-prefix)) | tr -d '\n' | xargs open"
 
 # MacPorts
-alias port-cleanup="for file in `port installed | grep -v active | sed -e "s/ //g"` ; do sudo port uninstall $file ; done"
-alias node-list="port installed nodejs"
-alias node-activate="sudo port activate"
+alias port-cleanup="port installed | grep -v active | sed -e 's/ //g' | xargs sudo port uninstall"
 
 # Local Grunt
 alias gr="./node_modules/grunt/bin/grunt"
