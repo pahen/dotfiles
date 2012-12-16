@@ -26,5 +26,9 @@ for option in autocd globstar; do
 done
 
 # RVM
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+if [ -z "$SUDO_USER" ]; then
+	# Add RVM to PATH for scripting
+	PATH=$PATH:$HOME/.rvm/bin
+	# Load RVM into a shell session *as a function*
+	[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+fi

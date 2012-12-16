@@ -39,5 +39,12 @@ GIT_PS1_SHOWDIRTYSTATE=true
 #GIT_PS1_SHOWUNTRACKEDFILES=false
 GIT_PS1_SHOWUPSTREAM="verbose"
 
-export PS1='\[\033[1;32m\]\u@\h\[\033[00m\]:\[\033[1;34m\]\w\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
+PROMPT_COLOR='1;32m'
+CWD_COLOR='1;34m'
+
+if [ ${UID} -eq 0 ]; then
+	PROMPT_COLOR='1;31m'
+fi
+
+export PS1='\[\e[${PROMPT_COLOR}\]\u@\h\[\e[00m\]:\[\e[${CWD_COLOR}\]\w\[\e[31m\]$(__git_ps1)\[\e[00m\]\$ '
 export PS2='> '

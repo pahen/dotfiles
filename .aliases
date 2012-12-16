@@ -63,7 +63,7 @@ alias server="open http://localhost:8000 && python -m SimpleHTTPServer"
 alias realpath="greadlink -f"
 
 # Flush Directory Service cache
-alias flush="sudo dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias flush="sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -87,6 +87,9 @@ alias port-cleanup="port installed | grep -v active | sed -e 's/ //g' | xargs su
 
 # Local Grunt
 alias gr="./node_modules/grunt/bin/grunt"
+
+# List everything you’ve ever downloaded
+alias downloaded="sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* 'select LSQuarantineDataURLString from LSQuarantineEvent' | sed '/^$/d'"
 
 # Colorize some commands (see /opt/local/etc/grc.conf)
 for CMD in ping traceroute; do
