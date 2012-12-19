@@ -5,6 +5,9 @@
 	excludesfile = ~/.gitignore
 	quotepath = false
 	editor = vim
+[push]
+    # Push the current branch to its upstream branch 
+    default = tracking
 [color]
 	# Use colors in Git commands that are capable of colored output when outputting to the terminal
 	ui = auto
@@ -34,6 +37,7 @@
 	tags = tag -l
 	branches = branch -a
 	remotes = remote -v
+    staged = diff --staged
 
 	# View the current working tree status using the short format
 	s = status -s
